@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  guessing_game:
+    container_name: name
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
