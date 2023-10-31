@@ -1,8 +1,11 @@
-FROM gcc:8.4.0
+# Use an official Python runtime as the base image
+FROM python:3.9-slim
 
-WORKDIR /app
-COPY spell_name.cpp .
+# Set the working directory (this is inside the container)
+WORKDIR /usr/src/app
 
-RUN g++ -o spell_name spell_name.cpp
+# Copy the Python script into the container
+COPY hello.py .
 
-CMD ["./spell_name"]
+# Command to run the Python script
+CMD ["python", "./hello.py"]
