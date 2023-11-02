@@ -8,7 +8,7 @@ help:
 	@echo "  build      - Build the Docker image"
 	@echo "  run        - Run the Docker container"
 	@echo "  clean      - Delete the Docker container"
-	@echo "  clean-all  - Delete both the Docker container and the image"
+	@echo "  fclean  - Delete both the Docker container and the image"
 
 # Build the Docker image
 build:
@@ -23,5 +23,5 @@ clean:
 	@docker rm -f $(CONTAINER_NAME) || true
 
 # Clean everything: stops and removes the container, and removes the image
-clean-all: clean
+fclean: clean
 	@docker rmi -f $(IMAGE_NAME) || true
