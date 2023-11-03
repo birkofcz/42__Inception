@@ -1,25 +1,15 @@
-FROM	debian:bookworm
+FROM debian:buster
 
-#install all the program
-RUN		apt-get update
-RUN		apt-get install -y nginx \
-                openssl
+RUN apt update
+RUN apt -y install nginx openssl
 
-# nginx SSL
-RUN mkdir /etc/nginx/ssl
-RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
-       -out /etc/nginx/ssl/sbenes.crt \
-       -keyout /etc/nginx/ssl/sbenes.key \
-       -subj "/C=CZ/ST=Prague/L=Prague/O=42Prague/OU=sbenes/CN=sbenes/"
+EXPOSE 443
 
-COPY ./conf/nginx.conf /etc/nginx/conf.d
-COPY ./public/index.html /var/www/html/
+COPY ./config/ng.conf /etc/nginx/sites-enabled/default
 
-# nginx config
-RUN mkdir -p /run/nginx
+RUN openssl req -x509 -nodes -newkey rsa:4096 \
+    -keyout /etc/ssl/private/nginx.key \
+    -out /etc/ssl/certs/nginx.crt \
+    -subj "/C=CZ/ST=Prague/L=Prague/O=42Prague/CN=sbenes"
 
-#the only port allowed
-EXPOSE	443
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "nginx", "-g", "daemon off;" ]

@@ -1,25 +1,16 @@
-#Makefile to run the show
+NAME = Inception
+SRC = ./srcs/docker-compose.yml
 
-help:
-	@echo "up - run the infrastructure"
-	@echo "down - stop the infrastructure"
-	@echo "re - redo"
-	@echo "fclean - delete the containers and images"
+all: $(NAME)
 
-up:
-	@docker compose -f ./srcs/docker-compose.yml up -d --build
+$(NAME):
+	docker compose -f $(SRC) up -d --build
 
-down:
-	@docker compose -f ./srcs/docker-compose.yml down
+clean:
+	docker compose -f $(SRC) down
 
-re:
-	@docker compose -f srcs/docker-compose.yml up -d --build
+fclean: clean
+	docker system prune -af
+	docker volume rm db wp
 
-fclean:
-	@docker stop $$(docker ps -qa);\
-	docker rm $$(docker ps -qa);\
-	docker rmi -f $$(docker images -qa);\
-	docker volume rm $$(docker volume ls -q);\
-	docker network rm $$(docker network ls -q);\
-
-.PHONY: up down re fclean
+re: fclean $(NAME)
