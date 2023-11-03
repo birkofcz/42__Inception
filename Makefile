@@ -11,6 +11,7 @@ clean:
 
 fclean: clean
 	docker system prune -af
-	docker volume rm db wp
+	@echo "\nDeleting volumes"
+	@docker volume rm db wp
 
 re: fclean $(NAME)
