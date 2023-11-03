@@ -2,16 +2,13 @@ version: '3'
 
 services:
   nginx:
-    container_name: nginx
-    build: 
-      context: ../
-      dockerfile: .srcs/requirements/nginx/Dockerfile
-    # depends_on:
+    container_name: sbenes_nginx
+    build: ./requirements/nginx/
     #   - adminer
     #   - redis
     #   - hugo
     ports:
-      - "443:443"
+      - 443:443
     volumes:
     #   - wordpress_data:/var/www/html
         - ./requirements/nginx/public:/var/www/html
