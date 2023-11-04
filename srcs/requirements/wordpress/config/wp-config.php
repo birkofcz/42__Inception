@@ -1,6 +1,5 @@
 <?php
 
-
 define( 'DB_NAME', 'wordpress');
 define( 'DB_USER', 'stepan');
 define( 'DB_PASSWORD', '42prague');

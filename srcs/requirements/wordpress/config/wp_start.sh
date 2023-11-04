@@ -23,3 +23,42 @@ then
 fi
 
 exec "$@"
+
+
+# set -e
+
+# # ... (other setup steps here if necessary) ...
+
+# # Wait for the database to be ready
+# until mysqladmin ping -h"$DB_HOST" --silent; do
+#     echo 'Waiting for database to be ready...'
+#     sleep 2
+# done
+
+# # Install WordPress if not already installed
+# if ! wp core is-installed --path=/var/www/html --allow-root; then
+#     wp core download --path=/var/www/html --allow-root
+#     wp config create \
+#         --dbname="${DB_NAME}" \
+#         --dbuser="${DB_USER}" \
+#         --dbpass="${DB_PASSWORD}" \
+#         --dbhost="${DB_HOST}" \
+#         --path=/var/www/html \
+#         --allow-root
+#     wp core install \
+#         --url="${WP_URL}" \
+#         --title="${WP_TITLE}" \
+#         --admin_user="${WP_ADMIN_LOGIN}" \
+#         --admin_password="${WP_ADMIN_PASSWORD}" \
+#         --admin_email="${WP_ADMIN_MAIL}" \
+#         --path=/var/www/html \
+#         --allow-root
+#     wp user create "${WP_USER_LOGIN}" "${WP_USER_EMAIL}" \
+#         --user_pass="${WP_USER_PASSWORD}" \
+#         --role=author \
+#         --path=/var/www/html \
+#         --allow-root
+# fi
+
+# # Run PHP-FPM
+# exec "$@"
