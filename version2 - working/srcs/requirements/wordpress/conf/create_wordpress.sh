@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Creates the config file for wordpress if not created already
 if [ -f ./wp-config.php ]
 then
 	echo "Wordpress already downloaded"

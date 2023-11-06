@@ -1,18 +1,15 @@
-# DC := docker compose -f ./srcs/docker-compose.yml
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sbenes <sbenes@student.42prague.com>       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/06 12:02:27 by sbenes            #+#    #+#              #
+#    Updated: 2023/11/06 12:02:30 by sbenes           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-# all:
-# 	@$(DC) up -d --build
-
-# down:
-# 	@$(DC) down
-
-# re: clean all
-
-# clean:
-# 	@$(DC) down -v --remove-orphans     # Down ile konteynerleri durdurur ve bağlı volumeleri kaldırır
-# 	@docker rmi -f $$(docker images -q) # Kullanılmayan imajları siler
-
-# .PHONY: all down re clean
 
 SRC = ./srcs/docker-compose.yml
 

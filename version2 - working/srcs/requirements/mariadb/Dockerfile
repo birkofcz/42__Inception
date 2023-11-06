@@ -1,20 +1,8 @@
-# FROM debian:buster
-
-# RUN apt-get update && apt-get install -y mariadb-server gettext-base
-
-# EXPOSE 3306
-
-# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-# COPY ./conf/init_db.sql /var/www/init_db.sql.template
-
-# RUN service mysql start && mysql < /var/www/init_db.sql && rm -f /var/www/ini_db.sql;
-
-# CMD ["mysqld"]
 
 FROM debian:buster
 
-# Install MariaDB and gettext-base
-RUN apt-get update && apt-get install -y mariadb-server gettext-base
+# Install MariaDB server
+RUN apt-get update && apt-get install -y mariadb-server 
 
 # Copy the configurations and script
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/

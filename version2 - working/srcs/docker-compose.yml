@@ -1,7 +1,9 @@
-
 version: '3'
 
 # SERVICES
+# This section defines the services that will be started. 
+# Docker will create a container for each service using the 
+# image specified in the build section (Dockerfile).
 services:
   nginx:
       container_name: nginx
@@ -41,6 +43,8 @@ services:
       - network
 
 # VOLUMES
+# Volumes are used to persist data between container restarts.
+# Data is stored on the host machine in the specified directory.
 volumes:
   mariadb_data:
     driver: local
@@ -56,6 +60,8 @@ volumes:
       o: bind
 
 # NETWORKS
+# Networks are used to connect containers together.
+# They work in a similar way to a physical network (like  virtual switch).
 networks:
   network:
     driver: bridge
