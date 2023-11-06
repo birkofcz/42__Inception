@@ -23,7 +23,7 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN mkdir /run/php
 
-COPY ./tools/create_wordpress.sh /usr/local/bin/
+COPY ./conf/create_wordpress.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/create_wordpress.sh
 ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
 
