@@ -1,61 +1,67 @@
-version: "3.8"
+version: '3'
 
-networks:
-  inception:
-    name: inception
-    driver: bridge
-
+# SERVICES
+# This section defines the services that will be started. 
+# Docker will create a container for each service using the 
+# image specified in the build section (Dockerfile).
 services:
+  nginx:
+      container_name: nginx
+      build: ./requirements/nginx
+      ports:
+         - 443:443
+      volumes:
+        - wordpress_data:/var/www/html
+      restart: always
+      networks:
+        - network
+
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
     volumes:
-      - db:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
-      - inception
-    restart: unless-stopped
+      - network
+    restart: always
     env_file:
       - .env
 
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress
     depends_on:
       - mariadb
-    volumes:
-      - wp:/var/www/html
-    networks:
-      - inception
-    restart: unless-stopped
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    restart: always
     env_file:
       - .env
-
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx
-    ports:
-      - "443:443"
-    depends_on:
-      - wordpress
     volumes:
-      - wp:/var/www/html
+      - wordpress_data:/var/www/html
     networks:
-      - inception
-    restart: unless-stopped
+      - network
 
+# VOLUMES
+# Volumes are used to persist data between container restarts.
+# Data is stored on the host machine in the specified directory.
 volumes:
-  wp:
+  mariadb_data:
     driver: local
-    name: wp
     driver_opts:
       type: none
+      device: /home/sbenes/data/mysql
       o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
       device: /home/sbenes/data/wordpress
-
-  db:
-    driver: local
-    name: db
-    driver_opts:
-      type: none
       o: bind
-      device: /home/sbenes/data/mariadb
+
+# NETWORKS
+# Networks are used to connect containers together.
+# They work in a similar way to a physical network (like  virtual switch).
+networks:
+  network:
+    driver: bridge
